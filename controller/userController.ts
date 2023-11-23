@@ -108,7 +108,7 @@ export const login = async (req: Request, res: Response) => {
       const verificationEmailHtml = `<p>Your verification OTP is: ${otp}</p>`;
       await sendEmail(user.email, "Verify Your Account", verificationEmailHtml);
 
-      return res.status(401).json({ error: "Account not verified. Check your email for the verification OTP." });
+      return res.status(401).json({ message: "Account not verified. Check your email for the verification OTP." });
     }
 
     const accessToken = generateUsersToken({ id: user._id, email: user.email });
