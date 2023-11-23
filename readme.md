@@ -1,6 +1,6 @@
 ### Thrindle Payment API Documentation
 # Overview
-The Thrindle Payment API allows authorized consumers to make money transfers using the Paystack payment gateway. Additionally, users can retrieve and search their transaction history.
+The Thrindle Payment API allows users to signup, get OTP and login and recieve a token. Authorized consumers can make money transfers using the Paystack payment gateway. Additionally, users can retrieve and search their transaction history.
 
 # Stack
 - Node.js

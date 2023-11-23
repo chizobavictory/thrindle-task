@@ -15,7 +15,7 @@ export const authMiddleware = (req: any, res: any, next: any) => {
     next();
   } catch (error) {
     return res.status(401).json({
-      message: "Auth failed",
+      message: "Auth failed. You are not authorized to access this route",
     });
   }
 };
