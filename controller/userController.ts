@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 import { sendEmail, welcomeEmail } from "../notifications";
 import { generateUsersToken } from "../utils/jwt";
+import { config } from "../utils/config";
 
 // Register
 export const register = async (req: Request, res: Response) => {
@@ -29,7 +30,7 @@ export const register = async (req: Request, res: Response) => {
       return res.status(409).json({ message: "Email already exists" });
     }
 
-    const encryptedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY || "").toString();
+    const encryptedPassword = CryptoJS.AES.encrypt(req.body.password, config.SECRET_KEY).toString();
 
     const newUser = new User({
       username: req.body.username,
@@ -41,9 +42,6 @@ export const register = async (req: Request, res: Response) => {
     const token = generateUsersToken({ id: newUser.id, email: newUser.email });
 
     const savedUser = await newUser.save();
-
-    // Send welcome email with verification link
-    // const verificationToken = jwt.sign({ userId: savedUser._id }, process.env.JWT_KEY || "", { expiresIn: "1h" });
 
     const welcomeEmailHtml = welcomeEmail(savedUser.username, otp, token);
 
@@ -94,11 +92,23 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json("User does not exist");
     }
 
-    const hashedPassword = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY || "");
+    const hashedPassword = CryptoJS.AES.decrypt(user.password, config.SECRET_KEY);
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
     if (originalPassword !== req.body.password) {
       return res.status(401).json("Wrong password credentials");
+    }
+
+    if (!user.isVerified) {
+      // If the user is not verified, send them an email with the OTP
+      const otp = uuidv4().substring(0, 6);
+      user.otp = otp;
+      await user.save();
+
+      const verificationEmailHtml = `<p>Your verification OTP is: ${otp}</p>`;
+      await sendEmail(user.email, "Verify Your Account", verificationEmailHtml);
+
+      return res.status(401).json({ error: "Account not verified. Check your email for the verification OTP." });
     }
 
     const accessToken = generateUsersToken({ id: user._id, email: user.email });

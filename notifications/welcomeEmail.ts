@@ -1,3 +1,4 @@
+import { config } from "../utils/config";
 function welcomeEmail(firstname: string, otp: string, token: string) {
   if (firstname.length < 1 || token.length < 5) {
     const errMessage = firstname.length < 1 ? "firstname is not specified" : "token is not specified";
@@ -101,9 +102,10 @@ function welcomeEmail(firstname: string, otp: string, token: string) {
                           Thank you for joining THRINDLE<br /><br />
                          We\’re so excited to have you on board and can\’t wait to get to know and serve you.<br>
                          <br>
-                         <br>
                          Your OTP for signup is: ${otp}
-                         <a href="${process.env.FRONTEND_BASE_URL}/verify/?token=${token}">click here to verify</a> or copy this ${process.env.FRONTEND_BASE_URL}/verify/?token=${token} link and paste in your browser.
+                         <br>
+                         <br>
+                         <a href="${config.FRONTEND_BASE_URL}/verify/?token=${token}">click here to verify</a> or copy this ${config.FRONTEND_BASE_URL}/verify/?token=${token} link and paste in your browser.
                          <br>
                           Thank you. <br /><br />
                         </td>
