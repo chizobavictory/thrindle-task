@@ -19,3 +19,9 @@ https://www.postman.com/telecoms-explorer-27073331/workspace/chizobavictory/coll
 # Installation
 - Clone the repository
 - Run npm install to install dependencies
+- Create a .env file in the root directory and add the data to match the .env.example file
+- Run npm run dev to start the server in development mode
+- Set postman environment to THRINDLE to set the base url
+
+# Deployment
+The API is deployed on Render. The enpoint is https://thrindle-payment-api.onrender.com
