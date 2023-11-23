@@ -3,12 +3,13 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user";
 import authRouter from "./routes/auth";
+import paymentRouter from "./routes/payment";
 import cors from "cors";
 import config from "./utils/config";
 
 dotenv.config();
 const app = express();
-const port =config.PORT; 
+const port = config.PORT;
 const db = config.MONGO_URL;
 
 mongoose.set("strictQuery", false);
@@ -23,6 +24,7 @@ app.use(cors({ origin: "*" }));
 
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/payments", paymentRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
