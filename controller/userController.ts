@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import User, { IUser } from "../models/user";
 import CryptoJS from "crypto-js";
-import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 import { sendEmail, welcomeEmail } from "../notifications";
 import { generateUsersToken } from "../utils/jwt";
