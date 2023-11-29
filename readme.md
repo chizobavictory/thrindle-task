@@ -12,7 +12,10 @@ The Thrindle Payment API allows users to signup, get OTP and login and recieve a
 ### Authentication
 All payment endpoints require authentication via JSON Web Token (JWT). Include the JWT token in the Authorization header with the format: Bearer <token>. It is gotten from the login endpoint.
 
-### Postman Documentation: 
+### Postman Documentation
+https://documenter.getpostman.com/view/24035086/2s9YeHYq4L
+
+### Postman Collection: 
 Every endpoint has the required documentation explained in full on Postman. You can access the documentation via the link below:
 https://www.postman.com/telecoms-explorer-27073331/workspace/chizobavictory/collection/24035086-20581051-9d48-42ac-8e39-4ac8e6713067?action=share&creator=24035086&active-environment=24035086-18db1989-d499-4ff5-aaef-9dd8df35dcc9
 
